@@ -1,0 +1,4 @@
+[submodule "Project-Obsidian.SourceGenerators"]
+	path = Project-Obsidian.SourceGenerators
+	url = https://github.com/Custom-Extension-Works/Project-Obsidian.SourceGenerators
+	branch = main

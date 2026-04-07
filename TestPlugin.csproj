@@ -1,0 +1,51 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+	<RootNamespace>TestPlugin</RootNamespace>
+	<AssemblyName>TestPlugin</AssemblyName>
+	<TargetFramework>net9.0</TargetFramework>
+	<LangVersion>13</LangVersion>
+	<Copyright>Copyright © YourName 2025</Copyright>
+	<Product>TestPlugin</Product>
+  </PropertyGroup>
+  <PropertyGroup>
+	<ResonitePath>$(MSBuildThisFileDirectory)Resonite\</ResonitePath>
+	<ResonitePath Condition="Exists('C:\Program Files (x86)\Steam\steamapps\common\Resonite\')">C:\Program Files (x86)\Steam\steamapps\common\Resonite\</ResonitePath>
+	<ResonitePath Condition="Exists('$(HOME)/.steam/steam/steamapps/common/Resonite/')">$(HOME)/.steam/steam/steamapps/common/Resonite/</ResonitePath>
+	<ResonitePath Condition="Exists('/mnt/LocalDisk2/SteamLibrary/steamapps/common/Resonite/')">/mnt/LocalDisk2/SteamLibrary/steamapps/common/Resonite/</ResonitePath>
+	<ResonitePath Condition="Exists('G:\SteamLibrary\steamapps\common\Resonite\')">G:\SteamLibrary\steamapps\common\Resonite\</ResonitePath>
+  </PropertyGroup>
+  <ItemGroup>
+	<Compile Remove="Project-Obsidian.SourceGenerators\**" />
+	<EmbeddedResource Remove="Project-Obsidian.SourceGenerators\**" />
+	<None Remove="Project-Obsidian.SourceGenerators\**" />
+  </ItemGroup>
+  <ItemGroup>
+	<Reference Include="Elements.Core">
+	  <HintPath>$(ResonitePath)Elements.Core.dll</HintPath>
+	</Reference>
+	<Reference Include="FrooxEngine">
+	  <HintPath>$(ResonitePath)FrooxEngine.dll</HintPath>
+	</Reference>
+	<Reference Include="ProtoFlux.Core">
+	  <HintPath>$(ResonitePath)ProtoFlux.Core.dll</HintPath>
+	</Reference>
+	<Reference Include="ProtoFlux.Nodes.Core">
+	  <HintPath>$(ResonitePath)ProtoFlux.Nodes.Core.dll</HintPath>
+	</Reference>
+	<Reference Include="ProtoFlux.Nodes.FrooxEngine">
+	  <HintPath>$(ResonitePath)ProtoFlux.Nodes.FrooxEngine.dll</HintPath>
+	</Reference>
+	  <Reference Include="Elements.Data">
+        <HintPath>$(ResonitePath)Elements.Data.dll</HintPath>
+	  </Reference>
+	  <Reference Include="ProtoFluxBindings">
+		<HintPath>$(ResonitePath)ProtoFluxBindings.dll</HintPath>
+	  </Reference>
+  </ItemGroup>
+  <ItemGroup>
+	<ProjectReference Include="Project-Obsidian.SourceGenerators\ProjectObsidian.SourceGenerators\SourceGenerators.csproj" OutputItemType="Analyzer" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+	<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ResonitePath)Libraries" />
+  </Target>
+</Project>
