@@ -1,12 +1,12 @@
 ﻿using System.Collections.Generic;
 using Elements.Core;
 using FrooxEngine;
-using ProtoFlux.Runtimes.Execution;
 
-namespace TestPlugin;
+namespace ResoniteSpatialLists.Data.Spatial.Samplers.Lists;
 
 [Category("Data/Spatial/Samplers/Lists")]
-class ValueSpatialVariableCollector<T> : Component
+class ValueSpatialVariableCollector<T> : 
+	Component
 {
 	public readonly DriveRef<SyncFieldList<T>> ValueList;
 	public readonly Sync<string> VariableName;
@@ -17,7 +17,7 @@ class ValueSpatialVariableCollector<T> : Component
 		if (!ValueList.IsLinkValid)
 			return;
 		List<SpatialVariableResult<T>> list = Pool.BorrowList<SpatialVariableResult<T>>();
-		World.SampleSpatialVariables<T>((string)VariableName, Slot.GlobalPosition, list);
+		World.SampleSpatialVariables((string)VariableName, Slot.GlobalPosition, list);
 		SyncFieldList<T> target = ValueList.Target;
 		for (int index = 0; index < list.Count; ++index)
 		{
