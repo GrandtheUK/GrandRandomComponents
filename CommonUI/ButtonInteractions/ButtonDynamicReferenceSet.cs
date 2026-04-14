@@ -1,25 +1,25 @@
 using System.Collections.Generic;
+using System.Linq;
 using Elements.Core;
 using FrooxEngine;
 
 namespace GrandRandomComponents.CommonUI.ButtonInteractions;
 
 [Category("Common UI/Button Interactions")]
-[GenericTypes(GenericTypesAttribute.Group.EnginePrimitives)]
-public class ButtonDynamicValueSet<T> :
+public class ButtonDynamicReferenceSet<T> :
     Component,
-    IButtonPressReceiver
+    IButtonPressReceiver where T : class, IWorldElement
 {
     public readonly SyncRef<Slot> TargetSlot;
-    public readonly SyncBag<ButtonDynamicValueSet<T>.DynamicVariable> _pressedDynamicVariables;
-    public readonly SyncBag<ButtonDynamicValueSet<T>.DynamicVariable> _pressingDynamicVariables;
-    public readonly SyncBag<ButtonDynamicValueSet<T>.DynamicVariable> _releasedDynamicVariables;
+    public readonly SyncBag<ButtonDynamicReferenceSet<T>.DynamicVariable> _pressedDynamicVariables;
+    public readonly SyncBag<ButtonDynamicReferenceSet<T>.DynamicVariable> _pressingDynamicVariables;
+    public readonly SyncBag<ButtonDynamicReferenceSet<T>.DynamicVariable> _releasedDynamicVariables;
 
     public class DynamicVariable : SyncObject
     {
         public readonly SyncRef<Slot> SlotOverride;
         public readonly Sync<string> Name = new();
-        public readonly Sync<T> ValueSet = new();
+        public readonly SyncRef<T> ValueSet = new();
         public readonly Sync<bool> CreateIfNotExist = new();
         public readonly Sync<bool> CreateNonPersistant = new();
     }
@@ -30,7 +30,7 @@ public class ButtonDynamicValueSet<T> :
         foreach (KeyValuePair<RefID,DynamicVariable> DynVar in _pressedDynamicVariables)
         {
             string name = DynVar.Value.Name.Value;
-            T value = DynVar.Value.ValueSet.Value;
+            T value = DynVar.Value.ValueSet.Target;
             bool create = DynVar.Value.CreateIfNotExist.Value;
             bool persist = DynVar.Value.CreateNonPersistant.Value;
             Slot overrideSlot = DynVar.Value.SlotOverride.Target;
@@ -43,12 +43,12 @@ public class ButtonDynamicValueSet<T> :
                 continue;
             if (create)
             {
-                if (target.GetComponents<DynamicValueVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
+                if (target.GetComponents<DynamicReferenceVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
                 {
-                    target.AttachComponent<DynamicValueVariable<T>>(beforeAttach: c =>
+                    target.AttachComponent<DynamicReferenceVariable<T>>(beforeAttach: c =>
                     {
                         c.VariableName.Value = name;
-                        c.Value.Value = value;
+                        c.Reference.Target = value;
                         c.Persistent = persist;
                     });
                     continue;
@@ -64,7 +64,7 @@ public class ButtonDynamicValueSet<T> :
         foreach (KeyValuePair<RefID,DynamicVariable> DynVar in _pressingDynamicVariables)
         {
             string name = DynVar.Value.Name.Value;
-            T value = DynVar.Value.ValueSet.Value;
+            T value = DynVar.Value.ValueSet.Target;
             bool create = DynVar.Value.CreateIfNotExist.Value;
             bool persist = DynVar.Value.CreateNonPersistant.Value;
             Slot overrideSlot = DynVar.Value.SlotOverride.Target;
@@ -77,12 +77,12 @@ public class ButtonDynamicValueSet<T> :
                 continue;
             if (create)
             {
-                if (target.GetComponents<DynamicValueVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
+                if (target.GetComponents<DynamicReferenceVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
                 {
-                    target.AttachComponent<DynamicValueVariable<T>>(beforeAttach: c =>
+                    target.AttachComponent<DynamicReferenceVariable<T>>(beforeAttach: c =>
                     {
                         c.VariableName.Value = name;
-                        c.Value.Value = value;
+                        c.Reference.Target = value;
                         c.Persistent = persist;
                     });
                     continue;
@@ -98,7 +98,7 @@ public class ButtonDynamicValueSet<T> :
         foreach (KeyValuePair<RefID,DynamicVariable> DynVar in _releasedDynamicVariables)
         {
             string name = DynVar.Value.Name.Value;
-            T value = DynVar.Value.ValueSet.Value;
+            T value = DynVar.Value.ValueSet.Target;
             bool create = DynVar.Value.CreateIfNotExist.Value;
             bool persist = DynVar.Value.CreateNonPersistant.Value;
             Slot overrideSlot = DynVar.Value.SlotOverride.Target;
@@ -111,12 +111,12 @@ public class ButtonDynamicValueSet<T> :
                 continue;
             if (create)
             {
-                if (target.GetComponents<DynamicValueVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
+                if (target.GetComponents<DynamicReferenceVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
                 {
-                    target.AttachComponent<DynamicValueVariable<T>>(beforeAttach: c =>
+                    target.AttachComponent<DynamicReferenceVariable<T>>(beforeAttach: c =>
                     {
                         c.VariableName.Value = name;
-                        c.Value.Value = value;
+                        c.Reference.Target = value;
                         c.Persistent = persist;
                     });
                     continue;

@@ -2,7 +2,7 @@
 using Elements.Core;
 using FrooxEngine;
 
-namespace ResoniteSpatialLists.Data.Spatial.Samplers.Lists;
+namespace GrandRandomComponents.Data.Spatial.Samplers.Lists;
 
 [Category("Data/Spatial/Samplers/Lists")]
 class ValueSpatialVariableCollector<T> : 

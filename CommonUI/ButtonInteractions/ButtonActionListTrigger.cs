@@ -1,7 +1,7 @@
 using System;
 using FrooxEngine;
 
-namespace ResoniteSpatialLists.CommonUI.ButtonInteractions;
+namespace GrandRandomComponents.CommonUI.ButtonInteractions;
 
 [Category("Common UI/Button Interactions")]
 public class ButtonActionListTrigger : 

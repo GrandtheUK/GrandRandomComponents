@@ -1,11 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-	<RootNamespace>ResoniteSpatialLists</RootNamespace>
 	<TargetFramework>net10.0</TargetFramework>
 	<LangVersion>13</LangVersion>
 	<Copyright>Copyright © YourName 2025</Copyright>
 	<Product>TestPlugin</Product>
-	<PackageId>ResoniteSpatialLists</PackageId>
+	<PackageId>GrandRandomComponents</PackageId>
   </PropertyGroup>
   <PropertyGroup>
 	<ResonitePath>$(MSBuildThisFileDirectory)Resonite\</ResonitePath>
