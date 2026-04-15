@@ -41,20 +41,16 @@ public class ButtonDynamicReferenceSet<T> :
             DynamicVariableSpace space = DynamicVariableHelper.FindSpace(slot, spaceName);
             if (space == null)
                 continue;
+            DynamicVariableSpace.ValueManager<T> manager = space.GetManager<T>(variableName, false);
+            if (manager != null)
+            {
+                manager.SetValue(value);
+                return;
+            }
             if (create)
             {
-                if (target.GetComponents<DynamicReferenceVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
-                {
-                    target.AttachComponent<DynamicReferenceVariable<T>>(beforeAttach: c =>
-                    {
-                        c.VariableName.Value = name;
-                        c.Reference.Target = value;
-                        c.Persistent = persist;
-                    });
-                    continue;
-                }
+                DynamicVariableHelper.CreateVariable(target, name, value, persist);
             }
-            space.GetManager<T>(variableName,false).SetValue(value);
         } 
     }
 
@@ -75,20 +71,16 @@ public class ButtonDynamicReferenceSet<T> :
             DynamicVariableSpace space = DynamicVariableHelper.FindSpace(slot, spaceName);
             if (space == null)
                 continue;
+            DynamicVariableSpace.ValueManager<T> manager = space.GetManager<T>(variableName, false);
+            if (manager != null)
+            {
+                manager.SetValue(value);
+                return;
+            }
             if (create)
             {
-                if (target.GetComponents<DynamicReferenceVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
-                {
-                    target.AttachComponent<DynamicReferenceVariable<T>>(beforeAttach: c =>
-                    {
-                        c.VariableName.Value = name;
-                        c.Reference.Target = value;
-                        c.Persistent = persist;
-                    });
-                    continue;
-                }
+                DynamicVariableHelper.CreateVariable(target, name, value, persist);
             }
-            space.GetManager<T>(variableName,false).SetValue(value);
         } 
     }
 
@@ -109,20 +101,16 @@ public class ButtonDynamicReferenceSet<T> :
             DynamicVariableSpace space = DynamicVariableHelper.FindSpace(slot, spaceName);
             if (space == null)
                 continue;
+            DynamicVariableSpace.ValueManager<T> manager = space.GetManager<T>(variableName, false);
+            if (manager != null)
+            {
+                manager.SetValue(value);
+                return;
+            }
             if (create)
             {
-                if (target.GetComponents<DynamicReferenceVariable<T>>(c => { return c.VariableName == name; }).Count == 0)
-                {
-                    target.AttachComponent<DynamicReferenceVariable<T>>(beforeAttach: c =>
-                    {
-                        c.VariableName.Value = name;
-                        c.Reference.Target = value;
-                        c.Persistent = persist;
-                    });
-                    continue;
-                }
+                DynamicVariableHelper.CreateVariable(target, name, value, persist);
             }
-            space.GetManager<T>(variableName,false).SetValue(value);
         } 
     }
 }
