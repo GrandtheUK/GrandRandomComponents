@@ -1,8 +1,7 @@
-# PluginTemplate
+# GrandRandomComponents
 
-This is a template for a Resonite plugin that uses Project Obsidian's custom ProtoFlux binding generator.
+This is a Resonite plugin that adds some random custom components I come up with. It's mostly a mess of different things and is a personal repository. But feel free to take components if you like them.
 
-The plugin is marked as a Core assembly which means it will always be loaded by default when you start a session. (THIS MEANS OTHER USERS CAN'T JOIN SESSIONS YOU START UNLESS THEY HAVE THE SAME PLUGIN)
+This uses the Custom Extension Works template for plugins so protoflux nodes can be added later if I want.
 
-If you would like to change it, go to `Properties/AssemblyInfo.cs` and change it to Optional.
-If you change it to Optional, you will need a mod to select it when you start a session: https://github.com/Nytra/ResonitePluginSelect
+This plugin is marked as Optional and will require [ResonitePluginSelect](https://github.com/Nytra/ResonitePluginSelect) to load it
